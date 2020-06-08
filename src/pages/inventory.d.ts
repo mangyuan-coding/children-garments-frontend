@@ -3,7 +3,13 @@ export interface InventoryModel {
   totalCost: number;
   totalProfit: number;
   items: InventoryItemModel[];
-}ø
+}
+
+export interface Sale {
+  id: string;
+  price: number;
+  saleQuantities: number;
+}
 
 export interface InventoryItemModel {
   id: string;

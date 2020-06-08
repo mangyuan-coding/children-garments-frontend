@@ -1,5 +1,5 @@
 import request from 'umi-request';
-import { InventoryModel } from '../pages/inventory.d';
+import {InventoryModel} from '../pages/inventory.d';
 
 interface ParamsType extends Partial<InventoryModel> {
   count?: number;
@@ -12,21 +12,17 @@ export async function queryInventories(params: ParamsType) {
 }
 
 export async function removeInventoryItem(params: ParamsType) {
-  const { count = 5, ...restParams } = params;
+  const {count = 5, ...restParams} = params;
   return request('/api/inventories', {
-    method: 'POST',
+    method: 'DELETE',
     params: {
-      count,
-    },
-    data: {
       ...restParams,
-      method: 'delete',
     },
   });
 }
 
 export async function addInventory(params: ParamsType) {
-  const { count = 5, ...restParams } = params;
+  const {count = 5, ...restParams} = params;
   return request('/api/inventories', {
     method: 'POST',
     params: {
@@ -40,9 +36,9 @@ export async function addInventory(params: ParamsType) {
 }
 
 export async function modifyInventories(params: ParamsType) {
-  const { count = 5, ...restParams } = params;
+  const {count = 5, ...restParams} = params;
   return request('/api/inventories', {
-    method: 'POST',
+    method: 'PUT',
     params: {
       count,
     },

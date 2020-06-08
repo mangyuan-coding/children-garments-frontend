@@ -1,7 +1,7 @@
-import { Effect, Reducer } from 'umi';
-import { addInventory, queryInventories, removeInventoryItem, modifyInventories } from '../services/service';
+import {Effect, Reducer} from 'umi';
+import {addInventory, modifyInventories, queryInventories, removeInventoryItem} from '@/services/service';
 
-import { InventoryModel } from '../pages/inventory.d';
+import {InventoryModel} from '../pages/inventory.d';
 
 export interface StateType {
   list: InventoryModel;
@@ -24,35 +24,36 @@ const Model: ModelType = {
   namespace: 'inventory',
 
   state: {
-    list: { totalCost: 0, totalSale: 0, totalProfit: 0, items: [] }
+    list: {totalCost: 0, totalSale: 0, totalProfit: 0, items: []}
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
+    * fetch({payload}, {call, put}) {
       const response = yield call(queryInventories, payload);
-      yield put({
-        type: 'query',
-        payload: response === null ? response : { totalCost: 0, totalSale: 0, totalProfit: 0, items: [] },
-      });
-    },
-    *appendFetch({ payload }, { call, put }) {
-      const response = yield call(queryInventories, payload);
-      yield put({
-        type: 'query',
-        payload: response === null ? response : { totalCost: 0, totalSale: 0, totalProfit: 0, items: [] },
-      });
-    },
-    *submit({ payload }, { call, put }) {
-      let callback;
-      if (payload.id) {
-        callback = Object.keys(payload).length === 1 ? removeInventoryItem : modifyInventories;
-      } else {
-        callback = addInventory;
-      }
-      const response = yield call(callback, payload); // post
       yield put({
         type: 'query',
         payload: response,
+      });
+    },
+    * appendFetch({payload}, {call, put}) {
+      const response = yield call(queryInventories, payload);
+      yield put({
+        type: 'query',
+        payload: response,
+      });
+    },
+    * submit({payload}, {call, put}) {
+      let callback;
+      if (payload.id) {
+        callback = payload.sale ? modifyInventories : removeInventoryItem;
+      } else {
+        callback = addInventory;
+      }
+      yield call(callback, payload); // post
+      const queryResponse = yield call(queryInventories, payload);
+      yield put({
+        type: 'query',
+        payload: queryResponse,
       });
     },
   },
