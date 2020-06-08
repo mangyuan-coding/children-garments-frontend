@@ -24,7 +24,7 @@ const Model: ModelType = {
   namespace: 'inventory',
 
   state: {
-    list: {totalCost: 0, totalSale: 0, totalProfit: 0, items: []}
+    list: {totalCost: 0, totalSale: 0, totalProfit: 0, items: [], size: 0}
   },
 
   effects: {

@@ -9,6 +9,7 @@ import InventoryItem from './InventoryItem';
 import {StateType} from '@/models/model';
 import {InventoryItemModel, Sale} from './inventory.d';
 import styles from './style.less';
+import {Remain} from "@/services/service";
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -95,22 +96,81 @@ export const Inventory: FC<InventoryProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [sale, setSale] = useState<boolean>(false);
   const [current, setCurrent] = useState<Partial<InventoryItemModel> | undefined>(undefined);
-
-  useEffect(() => {
-    dispatch({
-      type: 'inventory/fetch',
-      payload: {
-        count: 5,
-      },
-    });
-  }, [1]);
+  const [search, setSearch] = useState<string>("");
+  const [remain, setRemain] = useState<Remain>(Remain.NULL);
 
   const paginationProps = {
     showSizeChanger: true,
     showQuickJumper: true,
     pageSize: 5,
-    total: 50,
+    total: list.size,
+    defaultCurrent: 1,
+    remain: remain,
   };
+
+  useEffect(() => {
+    dispatch({
+      type: 'inventory/fetch',
+      payload: {
+        pageSize: paginationProps.pageSize,
+        pageIndex: paginationProps.defaultCurrent,
+        search: search,
+        remain: remain,
+      },
+    });
+  }, [1]);
+
+  const onSearch = (search: string) => {
+    setSearch(search);
+    dispatch({
+      type: 'inventory/fetch',
+      payload: {
+        pageSize: paginationProps.pageSize,
+        pageIndex: paginationProps.defaultCurrent,
+        search: search,
+        remain: remain,
+      },
+    });
+  };
+
+  const onAllChange = () => {
+    setRemain(Remain.NULL);
+    dispatch({
+      type: 'inventory/fetch',
+      payload: {
+        pageSize: paginationProps.pageSize,
+        pageIndex: paginationProps.defaultCurrent,
+        search: search,
+        remain: remain,
+      },
+    });
+  }
+
+  const onRemainChange = () => {
+    setRemain(Remain.REMAIN);
+    dispatch({
+      type: 'inventory/fetch',
+      payload: {
+        pageSize: paginationProps.pageSize,
+        pageIndex: paginationProps.defaultCurrent,
+        search: search,
+        remain: remain,
+      },
+    });
+  }
+
+  const onNoRemainChange = () => {
+    setRemain(Remain.NO_REMAIN);
+    dispatch({
+      type: 'inventory/fetch',
+      payload: {
+        pageSize: paginationProps.pageSize,
+        pageIndex: paginationProps.defaultCurrent,
+        search: search,
+        remain: remain,
+      },
+    });
+  }
 
   const showModal = () => {
     setVisible(true);
@@ -147,11 +207,11 @@ export const Inventory: FC<InventoryProps> = (props) => {
   const extraContent = (
     <div className={styles.extraContent}>
       <RadioGroup defaultValue="all">
-        <RadioButton value="all">全部</RadioButton>
-        <RadioButton value="progress">已售磬</RadioButton>
-        <RadioButton value="waiting">未售罄</RadioButton>
+        <RadioButton value="all" onChange={onAllChange}>全部</RadioButton>
+        <RadioButton value="remained" onChange={onRemainChange}>未售罄</RadioButton>
+        <RadioButton value="noRemain" onChange={onNoRemainChange}>已售磬</RadioButton>
       </RadioGroup>
-      <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})}/>
+      <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={onSearch}/>
     </div>
   );
 
