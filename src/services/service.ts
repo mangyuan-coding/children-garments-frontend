@@ -20,7 +20,7 @@ export async function queryInventories(params: ParamsType) {
     params: {
       pageSize: pageSize,
       pageIndex: pageIndex,
-      remain: remain === Remain.NULL ? null : remain === Remain.REMAIN,
+      remain: remain,
       search: search,
     }
   });

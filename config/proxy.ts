@@ -9,6 +9,7 @@ export default {
   dev: {
     '/api/': {
       target: 'http://111.229.162.70:8089',
+      // target: 'http://127.0.0.1:8089',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
@@ -16,6 +17,7 @@ export default {
   test: {
     '/api/': {
       target: 'http://111.229.162.70:8089',
+      // target: 'http://127.0.0.1:8089',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
@@ -23,6 +25,7 @@ export default {
   pre: {
     '/api/': {
       target: 'http://111.229.162.70:8089',
+      // target: 'http://127.0.0.1:8089',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },

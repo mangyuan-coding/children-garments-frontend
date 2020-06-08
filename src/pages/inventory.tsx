@@ -133,7 +133,7 @@ export const Inventory: FC<InventoryProps> = (props) => {
     });
   };
 
-  const onAllChange = () => {
+  const onAllClick = () => {
     setRemain(Remain.NULL);
     dispatch({
       type: 'inventory/fetch',
@@ -146,7 +146,7 @@ export const Inventory: FC<InventoryProps> = (props) => {
     });
   }
 
-  const onRemainChange = () => {
+  const onRemainClick = () => {
     setRemain(Remain.REMAIN);
     dispatch({
       type: 'inventory/fetch',
@@ -159,7 +159,7 @@ export const Inventory: FC<InventoryProps> = (props) => {
     });
   }
 
-  const onNoRemainChange = () => {
+  const onNoRemainClick = () => {
     setRemain(Remain.NO_REMAIN);
     dispatch({
       type: 'inventory/fetch',
@@ -207,9 +207,9 @@ export const Inventory: FC<InventoryProps> = (props) => {
   const extraContent = (
     <div className={styles.extraContent}>
       <RadioGroup defaultValue="all">
-        <RadioButton value="all" onChange={onAllChange}>全部</RadioButton>
-        <RadioButton value="remained" onChange={onRemainChange}>未售罄</RadioButton>
-        <RadioButton value="noRemain" onChange={onNoRemainChange}>已售磬</RadioButton>
+        <RadioButton value="all" onClick={onAllClick}>全部</RadioButton>
+        <RadioButton value="remained" onClick={onRemainClick}>未售罄</RadioButton>
+        <RadioButton value="noRemain" onClick={onNoRemainClick}>已售磬</RadioButton>
       </RadioGroup>
       <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={onSearch}/>
     </div>
