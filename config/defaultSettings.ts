@@ -1,4 +1,4 @@
-import { Settings as ProSettings } from '@ant-design/pro-layout';
+import {Settings as ProSettings} from '@ant-design/pro-layout';
 
 type DefaultSettings = ProSettings & {
   pwa: boolean;
@@ -16,11 +16,11 @@ const proSettings: DefaultSettings = {
   menu: {
     locale: true,
   },
-  title: 'Ant Design Pro',
+  title: '童装',
   pwa: false,
   iconfontUrl: '',
 };
 
-export type { DefaultSettings };
+export type {DefaultSettings};
 
 export default proSettings;

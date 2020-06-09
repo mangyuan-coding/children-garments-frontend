@@ -8,24 +8,24 @@
 export default {
   dev: {
     '/api/': {
-      // target: 'http://111.229.162.70:8089',
-      target: 'http://127.0.0.1:8089',
+      target: 'http://111.229.162.70:8089',
+      // target: 'http://127.0.0.1:8089',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
   },
   test: {
     '/api/': {
-      // target: 'http://111.229.162.70:8089',
-      target: 'http://127.0.0.1:8089',
+      target: 'http://111.229.162.70:8089',
+      // target: 'http://127.0.0.1:8089',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
   },
   pre: {
     '/api/': {
-      // target: 'http://111.229.162.70:8089',
-      target: 'http://127.0.0.1:8089',
+      target: 'http://111.229.162.70:8089',
+      // target: 'http://127.0.0.1:8089',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
