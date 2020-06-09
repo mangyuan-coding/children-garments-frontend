@@ -98,14 +98,39 @@ export const Inventory: FC<InventoryProps> = (props) => {
   const [current, setCurrent] = useState<Partial<InventoryItemModel> | undefined>(undefined);
   const [search, setSearch] = useState<string>("");
   const [remain, setRemain] = useState<Remain>(Remain.NULL);
+  const [showSize, setShowSize] = useState<number>(10);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const paginationProps = {
     showSizeChanger: true,
-    showQuickJumper: true,
-    pageSize: 5,
-    total: list.size,
-    defaultCurrent: 1,
-    remain: remain,
+    pageSize: showSize,
+    total: list.totalSize,
+    current: currentPage,
+    onChange: (current: number) => {
+      setCurrentPage(current);
+      dispatch({
+        type: 'inventory/fetch',
+        payload: {
+          pageSize: showSize,
+          pageIndex: current,
+          search: search,
+          remain: remain,
+        },
+      });
+    },
+    onShowSizeChange: (current: number, size: number) => {
+      setCurrentPage(current)
+      setShowSize(size);
+      dispatch({
+        type: 'inventory/fetch',
+        payload: {
+          pageSize: size,
+          pageIndex: current,
+          search: search,
+          remain: remain,
+        },
+      });
+    },
   };
 
   useEffect(() => {
@@ -113,7 +138,7 @@ export const Inventory: FC<InventoryProps> = (props) => {
       type: 'inventory/fetch',
       payload: {
         pageSize: paginationProps.pageSize,
-        pageIndex: paginationProps.defaultCurrent,
+        pageIndex: paginationProps.current,
         search: search,
         remain: remain,
       },
@@ -126,7 +151,7 @@ export const Inventory: FC<InventoryProps> = (props) => {
       type: 'inventory/fetch',
       payload: {
         pageSize: paginationProps.pageSize,
-        pageIndex: paginationProps.defaultCurrent,
+        pageIndex: paginationProps.current,
         search: search,
         remain: remain,
       },
@@ -139,9 +164,9 @@ export const Inventory: FC<InventoryProps> = (props) => {
       type: 'inventory/fetch',
       payload: {
         pageSize: paginationProps.pageSize,
-        pageIndex: paginationProps.defaultCurrent,
+        pageIndex: paginationProps.current,
         search: search,
-        remain: remain,
+        remain: Remain.NULL,
       },
     });
   }
@@ -152,9 +177,9 @@ export const Inventory: FC<InventoryProps> = (props) => {
       type: 'inventory/fetch',
       payload: {
         pageSize: paginationProps.pageSize,
-        pageIndex: paginationProps.defaultCurrent,
+        pageIndex: paginationProps.current,
         search: search,
-        remain: remain,
+        remain: Remain.REMAIN,
       },
     });
   }
@@ -165,9 +190,9 @@ export const Inventory: FC<InventoryProps> = (props) => {
       type: 'inventory/fetch',
       payload: {
         pageSize: paginationProps.pageSize,
-        pageIndex: paginationProps.defaultCurrent,
+        pageIndex: paginationProps.current,
         search: search,
-        remain: remain,
+        remain: Remain.NO_REMAIN,
       },
     });
   }
@@ -234,7 +259,6 @@ export const Inventory: FC<InventoryProps> = (props) => {
 
   const setAddBtnBlur = () => {
     if (addBtn.current) {
-      // eslint-disable-next-line react/no-find-dom-node
       const addBtnDom = findDOMNode(addBtn.current) as HTMLButtonElement;
       setTimeout(() => addBtnDom.blur(), 0);
     }

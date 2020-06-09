@@ -3,7 +3,7 @@ export interface InventoryModel {
   totalCost: number;
   totalProfit: number;
   items: InventoryItemModel[];
-  size: item.length;
+  totalSize: number;
 }
 
 export interface Sale {

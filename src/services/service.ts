@@ -10,8 +10,8 @@ interface ParamsType extends Partial<InventoryModel> {
 
 export enum Remain {
   NULL,
-  REMAIN,
   NO_REMAIN,
+  REMAIN,
 }
 
 export async function queryInventories(params: ParamsType) {

@@ -57,7 +57,6 @@ const InventoryItem: FC<InventoryItemProps> = (props) => {
         <Result
           status="success"
           title="操作成功"
-          subTitle="一系列的信息描述，很短同样也可以带标点。"
           extra={
             <Button type="primary" onClick={onDone}>
               知道了
