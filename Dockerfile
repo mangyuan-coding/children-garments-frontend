@@ -1,3 +1,4 @@
 FROM nginx:latest
-MAINTAINER xx
-COPY dist/ /usr/share/nginx/html/
+MAINTAINER children-garments-frontend
+COPY /dist/ /usr/share/nginx/html/
+EXPOSE 80
