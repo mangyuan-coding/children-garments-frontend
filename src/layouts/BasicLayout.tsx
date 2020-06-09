@@ -3,14 +3,9 @@
  * You can view component api by:
  * https://github.com/ant-design/ant-design-pro-layout
  */
-import ProLayout, {
-  MenuDataItem,
-  BasicLayoutProps as ProLayoutProps,
-  Settings,
-} from '@ant-design/pro-layout';
-import React, { useEffect } from 'react';
-import { Link, useIntl, connect, Dispatch } from 'umi';
-import { ConnectState } from '@/models/connect';
+import ProLayout, {BasicLayoutProps as ProLayoutProps, MenuDataItem, Settings,} from '@ant-design/pro-layout';
+import React, {useEffect} from 'react';
+import {connect, Dispatch, Link, useIntl} from 'umi';
 import logo from '../assets/logo.svg';
 
 
@@ -103,7 +98,5 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   );
 };
 
-export default connect(({ global, settings }: ConnectState) => ({
-  collapsed: global.collapsed,
-  settings,
+export default connect(() => ({
 }))(BasicLayout);

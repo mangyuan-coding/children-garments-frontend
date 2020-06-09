@@ -5,7 +5,6 @@ import proxy from './proxy';
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
   hash: true,
-  antd: {},
   dva: {
     hmr: true,
   },
@@ -13,7 +12,6 @@ export default defineConfig({
     // default zh-CN
     default: 'zh-CN',
     // default true, when it is true, will use `navigator.language` overwrite default
-    antd: true,
     baseNavigator: true,
   },
   targets: {
@@ -35,8 +33,7 @@ export default defineConfig({
     // ...darkTheme,
     'primary-color': defaultSettings.primaryColor,
   },
-  // @ts-ignore
-  title: false,
+  title: '童装',
   ignoreMomentLocale: true,
   proxy: proxy[REACT_APP_ENV || 'dev'],
   manifest: {
